@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat Simulation</title>
+    <style>
+        /* Import Iosevka font */
+        @import url('https://cdn.jsdelivr.net/npm/@fontsource/iosevka@4.5.4/index.css');
+
+        body {
+            font-family: 'Iosevka', sans-serif;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #333;
+            background-color: #e5ddd5;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .message {
+            max-width: 80%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            clear: both;
+            position: relative;
+        }
+
+        .user {
+            background-color: #dcf8c6;
+            float: right;
+        }
+
+        .llm {
+            background-color: #fff;
+            float: left;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message-info {
+            font-size: 0.8em;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .user .message-info {
+            text-align: right;
+        }
+
+        pre {
+            font-family: 'Iosevka', monospace;
+            font-size: 0.9em;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+        }
+
+        code {
+            font-family: 'Iosevka', monospace;
+            font-size: 0.9em;
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .keyword { color: #0000ff; }
+        .function { color: #7e1600; }
+        .number { color: #008000; }
+        .comment { color: #808080; }
+        .string { color: #a31515; }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="message user">
+            <div class="message-info">User • 14:23</div>
+            Hello! Can you help me write a Python function to calculate the factorial of a number?
+        </div>
+        <div class="clear"></div>
+
+        <div class="message llm">
+            <div class="message-info">AI Assistant • 14:24</div>
+            Certainly! I'd be happy to help you write a Python function to calculate the factorial of a number. Here's a simple implementation:
+
+            <pre><code><span class="keyword">def</span> <span class="function">factorial</span>(n):
+    <span class="keyword">if</span> n == <span class="number">0</span> or n == <span class="number">1</span>:
+        <span class="keyword">return</span> <span class="number">1</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>)
+
+<span class="comment"># Example usage</span>
+result = factorial(<span class="number">5</span>)
+<span class="function">print</span>(<span class="string">f"The factorial of 5 is: {result}"</span>)</code></pre>
+
+            This function uses recursion to calculate the factorial. Would you like me to explain how it works?
+        </div>
+        <div class="clear"></div>
+
+        <div class="message user">
+            <div class="message-info">User • 14:26</div>
+            Yes, please explain how the function works. Also, is there a way to handle negative numbers?
+        </div>
+        <div class="clear"></div>
+
+        <div class="message llm">
+            <div class="message-info">AI Assistant • 14:27</div>
+            Certainly! Let me explain how the function works and then we'll modify it to handle negative numbers.
+
+            1. The function starts with a base case: if n is 0 or 1, it returns 1 (since 0! and 1! are both defined as 1).
+            2. For any other number, it recursively calls itself with n-1 and multiplies the result by n.
+            3. This recursion continues until it reaches the base case.
+
+            For example, factorial(5) would work like this:
+            5 * factorial(4)
+            5 * (4 * factorial(3))
+            5 * (4 * (3 * factorial(2)))
+            5 * (4 * (3 * (2 * factorial(1))))
+            5 * (4 * (3 * (2 * 1)))
+            5 * 4 * 3 * 2 * 1 = 120
+
+            Now, let's modify the function to handle negative numbers:
+
+            <pre><code><span class="keyword">def</span> <span class="function">factorial</span>(n):
+    <span class="keyword">if</span> n &lt; <span class="number">0</span>:
+        <span class="keyword">raise</span> ValueError(<span class="string">"Factorial is not defined for negative numbers"</span>)
+    <span class="keyword">elif</span> n == <span class="number">0</span> or n == <span class="number">1</span>:
+        <span class="keyword">return</span> <span class="number">1</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>)
+
+<span class="comment"># Example usage</span>
+<span class="keyword">try</span>:
+    result = factorial(<span class="number">5</span>)
+    <span class="function">print</span>(<span class="string">f"The factorial of 5 is: {result}"</span>)
+
+    result = factorial(-<span class="number">3</span>)
+    <span class="function">print</span>(<span class="string">f"The factorial of -3 is: {result}"</span>)
+<span class="keyword">except</span> ValueError <span class="keyword">as</span> e:
+    <span class="function">print</span>(<span class="string">f"Error: {e}"</span>)</code></pre>
+
+            This version raises a ValueError if a negative number is input, which is then caught in the try-except block.
+        </div>
+        <div class="clear"></div>
+
+        <div class="message user">
+            <div class="message-info">User • 14:30</div>
+            That's great, thank you! Can you show me how to use this function to calculate the first 10 factorials?
+        </div>
+        <div class="clear"></div>
+
+        <div class="message llm">
+            <div class="message-info">AI Assistant • 14:31</div>
+            Certainly! I'll show you how to use the factorial function to calculate and display the first 10 factorials (0! to 9!). Here's the code:
+
+            <pre><code><span class="keyword">def</span> <span class="function">factorial</span>(n):
+    <span class="keyword">if</span> n &lt; <span class="number">0</span>:
+        <span class="keyword">raise</span> ValueError(<span class="string">"Factorial is not defined for negative numbers"</span>)
+    <span class="keyword">elif</span> n == <span class="number">0</span> or n == <span class="number">1</span>:
+        <span class="keyword">return</span> <span class="number">1</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>)
+
+<span class="comment"># Calculate and display the first 10 factorials</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>):
+    result = factorial(i)
+    <span class="function">print</span>(<span class="string">f"{i}! = {result}"</span>)
+</code></pre>
+
+            When you run this code, it will output:
+
+            0! = 1
+            1! = 1
+            2! = 2
+            3! = 6
+            4! = 24
+            5! = 120
+            6! = 720
+            7! = 5040
+            8! = 40320
+            9! = 362880
+
+            This demonstrates how quickly factorial values grow. Is there anything else you'd like to know about factorials or this implementation?
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
